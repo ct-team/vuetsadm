@@ -3,10 +3,14 @@ module.exports = {
     appVersion: '1.0.0', // 项目版本
     appUrl: '/static/test/', // 项目路径  如   /static/mobile/test/
     list: [
-        { title: '1505-stable', url: '//innerstaticadm.tcy365.com', env: 1505 },
-        { title: '1507-test', url: '//teststaticadm.tcy365.com', env: 1507 },
-        { title: '1506-develop', url: '//devstaticadm.tcy365.com', env: 1506 },
-        { title: '2505-pre', url: '//prestaticadm.tcy365.com', env: 2505 },
+        { title: '1505-stable', url: '//staticadm.tcy365.org:1505', env: 1505 },
+        { title: '1507-test', url: '//staticadm.tcy365.org:1507', env: 1507 },
+        {
+            title: '1506-develop',
+            url: '//staticadm.tcy365.org:1506',
+            env: 1506
+        },
+        { title: '2505-pre', url: '//staticadm.tcy365.org:2505', env: 2505 },
         { title: '80-static', url: '//staticadm.tcy365.com', env: 'production' }
     ],
     px2rem: null,
