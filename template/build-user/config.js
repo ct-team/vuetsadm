@@ -10,7 +10,7 @@ module.exports = {
             url: '//staticadm.tcy365.org:1506',
             env: 1506
         },
-        { title: '2505-pre', url: '//staticadm.tcy365.org:2505', env: 2505 },
+        { title: '2505-pre', url: '//staticadm.tcy365.com:2505', env: 2505 },
         { title: '80-static', url: '//staticadm.tcy365.com', env: 'production' }
     ],
     px2rem: null,
