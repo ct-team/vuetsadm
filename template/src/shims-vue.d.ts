@@ -8,3 +8,9 @@ declare module 'vue/types/vue' {
         $message: any;
     }
 }
+
+declare global {
+    interface Window {
+        [p: string]: any;
+    }
+}
