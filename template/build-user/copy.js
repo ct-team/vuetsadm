@@ -8,11 +8,12 @@ const src = path.join(__dirname, '../dist/dest');
 const root = path.resolve(__dirname, '../dist');
 //
 const clearEnv = function(result, env) {
-  const s = '<div[^>]*data-hide-env=(' + env + ').*?[^>]*>(.*?)</div>';
-  //console.log(s);
+  const s = '<div[^>]*data-hide-env="?(' + env + ')"?.*?[^>]*>(.*?)</div>';
+  const s2 = '<div[^>]*data-hide-env=.*?[^>]*>(.*?)</div>';
   const re = new RegExp(s, 'g');
-
-  return result.replace(re, '');
+  const re2 = new RegExp(s2, 'g');
+  const rs1 = result.replace(re, '');
+  return rs1.replace(re2, '$1');
 };
 
 const clearOtherEnv = function(result, env) {
@@ -27,11 +28,12 @@ const clearOtherEnv = function(result, env) {
 
   ruleEnv = envList.join('|');
 
-  const s = '<div[^>]*data-env=(' + ruleEnv + ').*?[^>]*>(.*?)</div>';
-  //console.log(s);
+  const s = '<div[^>]*data-env="?(' + ruleEnv + ')"?.*?[^>]*>(.*?)</div>';
+  const s2 = '<div[^>]*data-env=.*?[^>]*>(.*?)</div>';
   const re = new RegExp(s, 'g');
-
-  return result.replace(re, '');
+  const re2 = new RegExp(s2, 'g');
+  const rs1 = result.replace(re, '');
+  return rs1.replace(re2, '$1');
 };
 //端口替换
 const portReplace = function(obj) {
