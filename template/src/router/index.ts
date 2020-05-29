@@ -1,25 +1,27 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter, { RouteConfig } from 'vue-router';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-const routes: object[] = [
-    {
-        path: '/',
-        component: () => import('@/pages/home.vue'),
-        children: [
-            {
-                path: '/view',
-                component: () => import('@/pages/view.vue')
-            },
-            {
-                path: '/edit',
-                component: () => import('@/pages/edit.vue')
-            }
-        ]
-    }
+const routes: RouteConfig[] = [
+  {
+    path: '/',
+    component: () => import('@/pages/home.vue'),
+    children: [
+      {
+        path: '/view',
+        component: () => import('@/pages/view.vue')
+      },
+      {
+        path: '/edit',
+        component: () => import('@/pages/edit.vue')
+      }
+    ]
+  }
 ];
 
-export default new Router({
-    routes
+const router = new VueRouter({
+  routes
 });
+
+export default router;

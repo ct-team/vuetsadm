@@ -1,7 +1,7 @@
 <template>
-    <div class="app-wrapper">
-        <router-view></router-view>
-    </div>
+  <div class="app-wrapper">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,8 +13,8 @@ export default class App extends Vue {}
 
 <style scoped>
 .app-wrapper {
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
 }
 </style>
