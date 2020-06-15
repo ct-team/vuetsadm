@@ -12,18 +12,18 @@ module.exports = {
   productionSourceMap: false,
   css: {
     extract: IS_PROD, // 允许生成 CSS source maps?
-    sourceMap: false, // pass custom options to pre-processor loaders. e.g. to pass options to // sass-loader, use { sass: { ... } }
+    sourceMap: false // pass custom options to pre-processor loaders. e.g. to pass options to // sass-loader, use { sass: { ... } }
     //requireModuleExtension: false,
-    loaderOptions: {
-      postcss: {
-        plugins: [
-          autoprefixer({
-            overrideBrowserslist: ['> 1%', 'last 2 versions']
-          })
-          //require('postcss-pxtorem')(buildConfig.px2rem)
-        ]
-      }
-    }
+    // loaderOptions: {
+    //   postcss: {
+    //     plugins: [
+    //       autoprefixer({
+    //         overrideBrowserslist: ['> 1%', 'last 2 versions']
+    //       })
+    //       //require('postcss-pxtorem')(buildConfig.px2rem)
+    //     ]
+    //   }
+    // }
   },
   // 所有 webpack-dev-server 的选项都支持。
   devServer: buildConfig.devServer,

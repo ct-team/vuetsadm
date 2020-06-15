@@ -38,5 +38,12 @@
     "typescript": "~3.7.5",
     "vue-cli-plugin-webpack-bundle-analyzer": "^2.0.0",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8",
+    "ios >= 8",
+    "android >= 4.0"
+  ]
 }

@@ -17,4 +17,7 @@ export default class App extends Vue {}
   padding: 10px;
   box-sizing: border-box;
 }
+.tst {
+  flex: 1;
+}
 </style>
