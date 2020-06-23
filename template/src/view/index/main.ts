@@ -4,7 +4,11 @@ import router from '@/router/index';
 import store from '@/store/index';
 import '@/assets/js/common';
 import ElementUI from 'element-ui';
-import { Table, Slide, ListCopy } from 'ct-dart';
+import {
+  Table,
+  Slide
+  //ListCopy
+} from 'ct-dart';
 
 Vue.use(ElementUI, {
   size: 'mini',
@@ -13,7 +17,7 @@ Vue.use(ElementUI, {
 
 Vue.use(Table);
 Vue.use(Slide);
-Vue.use(ListCopy);
+//Vue.use(ListCopy);
 
 Vue.config.productionTip = false;
 
