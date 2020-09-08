@@ -11,7 +11,12 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" :loading="loading">
+        <el-button
+          type="primary"
+          @click="onSubmit"
+          :loading="loading"
+          icon="el-icon-search"
+        >
           查询
         </el-button>
       </el-form-item>
@@ -51,7 +56,7 @@ export default class Search extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .search-wrapper {
   overflow: hidden;
   margin: 10px 0;

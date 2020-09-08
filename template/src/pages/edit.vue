@@ -1,17 +1,6 @@
 <template>
-  <dart-slide
-    :loading="slideLoading"
-    :visible="slideVisible"
-    :title="slideTitle"
-    width="60%"
-    :afterClose="handleClose"
-  >
-    <el-form
-      :model="formData"
-      label-width="auto"
-      class="dt-form"
-      v-if="formData.name"
-    >
+  <div class="form-wrap" v-loading="slideLoading">
+    <el-form :model="formData" label-width="auto" class="dt-form">
       <el-form-item label="日期">
         <el-input v-model="formData.date"></el-input>
       </el-form-item>
@@ -25,11 +14,11 @@
         <el-button type="primary" @click="handleSubmit">确定</el-button>
       </el-form-item>
     </el-form>
-  </dart-slide>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Emit } from 'vue-property-decorator';
 import { FormInfo, ResponseInfo } from '@/types';
 import { getViewData, saveEditData } from '@/api';
 
@@ -37,9 +26,6 @@ import { getViewData, saveEditData } from '@/api';
 export default class Home extends Vue {
   // data
   private slideLoading = false;
-  private slideVisible = true;
-  private slideTitle = '编辑';
-
   private formData: FormInfo = {
     name: '',
     address: '',
@@ -48,39 +34,43 @@ export default class Home extends Vue {
 
   // 计算属性
   get id() {
-    return this.$route.query.id;
+    return Number(this.$route.query.id);
   }
 
-  // methods
-
-  private handleClose(): void {
-    this.$router.push({
-      path: '/'
-    });
-  }
-
-  private async getEditInfo() {
+  private getEditInfo() {
     this.setSlideLoading(true);
-    const ret: ResponseInfo = await getViewData(+this.id);
-
-    this.formData = ret.data;
-    this.setSlideLoading(false);
+    getViewData(this.id)
+      .then((res: ResponseInfo) => {
+        this.formData = res.data;
+        this.setSlideLoading(false);
+      })
+      .catch(() => {
+        this.setSlideLoading(false);
+      });
   }
 
-  private async handleSubmit() {
-    const ret = await saveEditData(this.formData);
-
-    this.$message({
-      message: ret.message,
-      type: 'success'
-    });
-
-    this.handleClose();
+  private handleSubmit() {
+    this.setSlideLoading(true);
+    saveEditData(this.formData)
+      .then((res: any) => {
+        this.setSlideLoading(false);
+        this.$message({
+          message: res.message,
+          type: 'success'
+        });
+        this.handleCloseDrawer();
+        this.$bus.$emit('refreshTable');
+      })
+      .catch(() => {
+        this.setSlideLoading(false);
+      });
   }
 
   public setSlideLoading(type: boolean): void {
     this.slideLoading = type;
   }
+  @Emit('close-drawer')
+  handleCloseDrawer() {}
 
   created(): void {
     this.getEditInfo();

@@ -30,7 +30,7 @@ module.exports = {
     disableHostCheck: true,
     port: 1506, // 端口号
     https: false,
-    open: true, // 配置自动启动浏览器
+    open: false, // 配置自动启动浏览器
     openPage: 'index.html',
     // 配置多个代理
     proxy: {

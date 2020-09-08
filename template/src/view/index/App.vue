@@ -11,11 +11,14 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class App extends Vue {}
 </script>
 
-<style scoped>
+<style>
 .app-wrapper {
   position: relative;
   padding: 10px;
   box-sizing: border-box;
+}
+.form-wrap {
+  height: 100%;
 }
 .tst {
   flex: 1;

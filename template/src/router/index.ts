@@ -6,15 +6,21 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('@/pages/home.vue'),
+    component: () => import('@/pages/Home.vue'),
     children: [
       {
-        path: '/view',
-        component: () => import('@/pages/view.vue')
-      },
-      {
-        path: '/edit',
-        component: () => import('@/pages/edit.vue')
+        path: '/drawer',
+        component: () => import('@/pages/Drawer.vue'),
+        children: [
+          {
+            path: 'view',
+            component: () => import('@/pages/View.vue')
+          },
+          {
+            path: 'edit',
+            component: () => import('@/pages/Edit.vue')
+          }
+        ]
       }
     ]
   }

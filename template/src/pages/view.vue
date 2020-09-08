@@ -1,17 +1,6 @@
 <template>
-  <dart-slide
-    :loading="slideLoading"
-    :visible="slideVisible"
-    :title="slideTitle"
-    width="60%"
-    :afterClose="handleClose"
-  >
-    <el-form
-      :model="formData"
-      label-width="auto"
-      class="dt-form"
-      v-if="formData.name"
-    >
+  <div class="form-wrap" v-loading="slideLoading">
+    <el-form :model="formData" class="dt-form">
       <el-form-item label="日期">
         {{ formData.date }}
       </el-form-item>
@@ -22,7 +11,7 @@
         {{ formData.address }}
       </el-form-item>
     </el-form>
-  </dart-slide>
+  </div>
 </template>
 
 <script lang="ts">
@@ -34,8 +23,6 @@ import { getViewData } from '@/api';
 export default class Home extends Vue {
   // data
   private slideLoading = false;
-  private slideVisible = true;
-  private slideTitle = '查看';
 
   private formData: FormInfo = {
     name: '',
@@ -45,22 +32,19 @@ export default class Home extends Vue {
 
   // 计算属性
   get id() {
-    return this.$route.query.id;
+    return Number(this.$route.query.id);
   }
 
-  // methods
-  private handleClose(): void {
-    this.$router.push({
-      path: '/'
-    });
-  }
-
-  private async getViewInfo() {
+  private getViewInfo() {
     this.setSlideLoading(true);
-    const ret: ResponseInfo = await getViewData(+this.id);
-
-    this.formData = ret.data;
-    this.setSlideLoading(false);
+    getViewData(this.id)
+      .then((res: ResponseInfo) => {
+        this.formData = res.data;
+        this.setSlideLoading(false);
+      })
+      .catch(() => {
+        this.setSlideLoading(false);
+      });
   }
 
   public setSlideLoading(type: boolean): void {

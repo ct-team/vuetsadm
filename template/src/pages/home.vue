@@ -4,21 +4,23 @@
     <Search @search="handleSearch" ref="search" />
     <Table
       @open-view="handleOpenView"
-      @edit="handleEdit"
+      @open-edit="handleOpenEdit"
       :data="tableData"
-      ref="table"
+      :loading="loading"
+      ref="myTable"
     />
     <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import Breadcrumb from './breadcrumb.vue';
-import Search from './search.vue';
-import Table from './table.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import Breadcrumb from './Breadcrumb.vue';
+import Search from './Search.vue';
+import Table from './Table.vue';
 import { SearchRequest, TableRow, ResponseInfo } from '@/types/index';
 import { getTableList } from '@/api';
+
 @Component({
   components: {
     Breadcrumb,
@@ -29,56 +31,68 @@ import { getTableList } from '@/api';
 export default class Home extends Vue {
   // data
   private tableData: Array<object> = [];
-
+  private loading: boolean = true;
   private form: SearchRequest = {
     user: '',
     region: ''
   };
 
-  @Watch('$route')
-  // eslint-disable-next-line
-    getPath(to: any, from: any) {
-    // 监听路由变化,如果是从编辑页返回，触发刷新表格接口
-    if (from.path === '/edit') {
-      this.refreshTable();
-    }
-  }
-
   // method
   private handleSearch(form: SearchRequest): void {
-    (this.$refs.search as Search).setLoading(false);
     this.form = form;
-    this.refreshTable();
+    this.refreshTable(this.form, () => {
+      (this.$refs.search as Search).setLoading(false);
+    });
   }
 
   private handleOpenView(row: TableRow): void {
-    this.routerPush('view', row.id);
+    this.routerPush('drawer/view', row.id, '查看');
   }
 
-  private handleEdit(row: TableRow): void {
-    this.routerPush('edit', row.id);
+  private handleOpenEdit(row: TableRow): void {
+    this.routerPush('drawer/edit', row.id, '编辑');
   }
 
-  // eslint-disable-next-line
-    private routerPush(path: string, id: any): void {
+  private routerPush(path: string, id: any, title: string): void {
     this.$router.push({
       path,
       query: {
-        id
+        id,
+        title
       }
     });
   }
 
-  private async refreshTable() {
-    (this.$refs.table as Table).setTableLoading(true);
-    const ret: ResponseInfo = await getTableList(this.form);
-
-    this.tableData = ret.data;
-    (this.$refs.table as Table).setTableLoading(false);
+  private setTableLoading(type: boolean) {
+    this.loading = type;
   }
 
-  mounted(): void {
+  private refreshTable(data: object = this.form, complete?: any) {
+    this.setTableLoading(true);
+    getTableList(data, complete)
+      .then((res: ResponseInfo) => {
+        this.tableData = res.data;
+        this.setTableLoading(false);
+      })
+      .catch(() => {
+        this.tableData = [];
+        this.setTableLoading(false);
+      });
+  }
+
+  private bindBusEvent() {
+    this.$bus.$on('refreshTable', (params: any) => {
+      this.refreshTable(params);
+    });
+  }
+
+  created(): void {
+    this.bindBusEvent();
     this.refreshTable();
+  }
+
+  destroy() {
+    this.$bus.$off('refreshTable');
   }
 }
 </script>

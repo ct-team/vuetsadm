@@ -1,20 +1,30 @@
-import { get, post } from '@/utils';
-import { FormInfo, SearchRequest, ResponseInfo } from '@/types';
+import Vue from 'vue';
+import Interface from '@/api/interface';
 
-export const getTableList = async (param: SearchRequest) => {
-  const ret: ResponseInfo = await get(`/api/list`, param);
-
-  return ret;
+export const getTableList = (params: any, complete?: any) => {
+  //@ts-ignore
+  return Vue.$dart.http.ajax({
+    method: 'get',
+    url: Interface.tableList,
+    data: params,
+    complete
+  });
 };
 
 export const getViewData = async (id: number) => {
-  const ret: ResponseInfo = await get('/api/view', { id });
-
-  return ret;
+  //@ts-ignore
+  return Vue.$dart.http.ajax({
+    method: 'get',
+    url: Interface.viewData,
+    data: { id }
+  });
 };
 
-export const saveEditData = async (param: FormInfo) => {
-  const ret = await post('/api/edit', param);
-
-  return ret;
+export const saveEditData = async (params: any) => {
+  //@ts-ignore
+  return Vue.$dart.http.ajax({
+    method: 'post',
+    url: Interface.edit,
+    data: params
+  });
 };
