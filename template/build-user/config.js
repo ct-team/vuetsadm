@@ -14,7 +14,7 @@ module.exports = {
     { title: '80-static', url: '//staticadm.tcy365.com', env: 'production' }
   ],
   px2rem: null,
-  isFile: false, //是否使用文件夹
+  isFile: true, //是否使用文件夹
   showPage: [], //["weixin", "sdw"]
   devServer: {
     //history server 模式

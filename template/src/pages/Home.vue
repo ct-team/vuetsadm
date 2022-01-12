@@ -37,7 +37,6 @@ export default class Home extends Vue {
     region: ''
   };
 
-  // method
   private handleSearch(form: SearchRequest): void {
     this.form = form;
     this.refreshTable(this.form, () => {

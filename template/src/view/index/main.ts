@@ -4,7 +4,7 @@ import router from '@/router/index';
 import store from '@/store/index';
 import '@/assets/js/common';
 import ElementUI, { Message } from 'element-ui';
-import { Table, Select, Http } from 'ct-dart';
+import { Table, Select, Http, Permission } from 'ct-dart';
 
 const showErrorMessage = (msg: string, type: string = 'error') => {
   Message({
@@ -20,6 +20,7 @@ Vue.use(ElementUI, {
 
 Vue.use(Table);
 Vue.use(Select);
+Vue.use(Permission);
 
 Vue.use(Http, {
   interceptError: function(res: any) {
@@ -42,7 +43,15 @@ Vue.use(Http, {
 //设置BUS
 const Bus = new Vue();
 Vue.prototype.$bus = Bus;
-
+// Vue.prototype.$dart.permission.setDefaults({
+//   //设置权限别名
+//   alias: {
+//     add: 1,
+//     del: 2,
+//     edit: 3
+//   },
+//   router: router
+// });
 new Vue({
   router,
   store,
