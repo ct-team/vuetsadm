@@ -20,4 +20,13 @@ src/view/
 ```
 ## static
 
-ejs页面上 使用 `./assets/`的形式可以调用的静态资源
+ejs页面上 使用 `./assets/`的形式可以调用的静态资源（资源中的）
+
+```
+//放到资源中
+publick/assets/
+    a.js
+//放到页面中
+publick/dest/
+    a.js
+```
